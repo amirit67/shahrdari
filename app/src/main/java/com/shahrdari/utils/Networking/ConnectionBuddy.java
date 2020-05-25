@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.shahrdari.Constants;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -13,10 +11,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Željko Plesac on 09/10/15.
@@ -106,7 +100,7 @@ public class ConnectionBuddy {
 
     public interface NetworkRequestCheckListener {
 
-       // void onResponseObtained(UserLogin tkModel);
+        // void onResponseObtained(UserLogin tkModel);
 
         void onNoResponse(boolean state, int code);
 

@@ -1,17 +1,15 @@
 package com.shahrdari.remote.repository;
 
 import com.shahrdari.MyApp;
+import com.shahrdari.models.BannerModel;
+import com.shahrdari.models.ProductItem;
 import com.shahrdari.rest.ApiInterface;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class RemoteRepository implements Repository {
@@ -24,6 +22,45 @@ public class RemoteRepository implements Repository {
         MyApp.getmainComponent().Inject(this);
         apiInterface = retrofit.create(ApiInterface.class);
     }
+
+    @Override
+    public Call<List<BannerModel>> getBanners() {
+        Call<List<BannerModel>> getBanner =
+                apiInterface.GetBanner();
+        return getBanner;
+    }
+
+    @Override
+    public Call<List<ProductItem>> getProducts1(String code) {
+        Call<List<ProductItem>> getProducts =
+                apiInterface.GetProductsGroup1(code);
+        return getProducts;
+    }
+
+    @Override
+    public Call<List<ProductItem>> getProducts2(String code) {
+        Call<List<ProductItem>> getProducts =
+                apiInterface.GetProductsGroup2(code);
+        return getProducts;
+    }
+
+
+    @Override
+    public Call<List<ProductItem>> getProducts3(String code) {
+        Call<List<ProductItem>> getProducts =
+                apiInterface.GetProductsGroup3(code);
+        return getProducts;
+    }
+
+    @Override
+    public Call<List<ProductItem>> getProducts4(String code) {
+        Call<List<ProductItem>> getProducts =
+                apiInterface.GetProductsGroup4(code);
+        return getProducts;
+    }
+
+
+
 
 
   /*  @Override

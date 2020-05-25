@@ -1,6 +1,34 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">شهرداری کرج</string>
     <string name="title_home">خانه</string>
     <string name="title_setting">فهرست</string>
-    <string name="title_shopping_bag">بازار روز</string>
+    <string name="title_shopping_bag">خرید آنلاین</string>
+    <string name="general_error">خطا در دریافت اطلاعات</string>
+    <string name="msg_price">%d تومان</string>
+    <string name="Skip">Skip</string>
+
+
+    <string-array name="categoryTitle">
+        <item>گوشت گرم(گوسفندی و گوساله)</item>
+        <item>آلایشی(کله پاچه)</item>
+        <item>آبزیان منجمد</item>
+        <item>زیتون و خیارشور</item>ه
+        <item>گوشت و مرغ منجمد</item>
+        <item>سبزی آماده طبخ</item>
+        <item>خرما</item>
+        <item>آبزیان جنوب</item>
+        <item>آبزیان شمال</item>
+        <item>آبزیان پرورشی</item>
+        <item>حبوبات</item>
+        <item>میوه</item>
+        <item>خشکبار</item>
+        <item>سبزيجات برگي و غيربرگي</item>
+        <item>بلدرچين و تخم بلدرچين</item>
+        <item>بوقلمون و تخم بوقلمون</item>
+        <item>شتر</item>
+        <item>شترمرغ و تخم شترمرغ</item>
+        <item>مرغ و تخم مرغ</item>
+        <item>ترشي</item>
+        <item>اجزاي مرغ</item>
+    </string-array>
 </resources>

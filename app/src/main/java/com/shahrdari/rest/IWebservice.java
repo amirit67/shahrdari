@@ -1,8 +1,5 @@
 package com.shahrdari.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by ZAMAN on 3/17/2018.
  */
@@ -10,7 +7,7 @@ import java.util.List;
 public interface IWebservice {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     interface IBaseResponse {
-       // void getResult(BaseResponse response) throws Exception;
+        // void getResult(BaseResponse response) throws Exception;
 
         void getError(String error) throws Exception;
     }

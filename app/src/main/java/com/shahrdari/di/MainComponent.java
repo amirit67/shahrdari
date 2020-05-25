@@ -21,5 +21,4 @@ public interface MainComponent {
     void Inject(MainActivity mainActivity);
 
 
-
 }

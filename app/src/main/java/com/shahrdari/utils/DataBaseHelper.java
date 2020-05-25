@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public abstract class DataBaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "investam.db";
+    private static String DB_NAME = "shahrdari.db";
     public SQLiteDatabase myDataBase;
     String DB_PATH;
     private Context mycontext;
@@ -70,7 +70,7 @@ public abstract class DataBaseHelper extends SQLiteOpenHelper {
         String outfilename = DB_PATH + DB_NAME;
 
         //Open the empty db as the output stream
-        OutputStream myoutput = new FileOutputStream("/data/data/" + mycontext.getPackageName() + "/databases/investam.db");
+        OutputStream myoutput = new FileOutputStream("/data/data/" + mycontext.getPackageName() + "/databases/shahrdari.db");
 
         // transfer byte to inputfile to outputfile
         byte[] buffer = new byte[1024];

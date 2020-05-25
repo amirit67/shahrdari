@@ -1,0 +1,27 @@
+<resources>
+
+    <integer-array name="products_imgs">
+        <item>@drawable/ic_cat_ghoshte_gharm01</item>
+        <item>@drawable/ic_cat_alayeshi2</item>
+        <item>@drawable/ic_cat_abziyan_monjamed3</item>
+        <item>@drawable/ic_cat_zeytoon_khiyarshoor4</item>
+        <item>@drawable/ic_cat_ghoosht_morq_monjamed5</item>
+        <item>@drawable/ic_cat_sabzijat_amade_tabkh6</item>
+        <item>@drawable/ic_cat_khorma7</item>
+        <item>@drawable/ic_cat_abziyan_jonob</item>
+        <item>@drawable/ic_cat_abziyan_shomal9</item>
+        <item>@drawable/ic_cat_abziyan_parvareshi10</item>
+        <item>@drawable/ic_cat_hoboobat11</item>
+        <item>@drawable/ic_cat_miveh12</item>
+        <item>@drawable/ic_cat_khoshkbar13</item>
+        <item>@drawable/ic_cat_sabzijate_barghiqeirebarghi14</item>
+        <item>@drawable/ic_cat_belderchin_tokhmbelderchin15</item>
+        <item>@drawable/ic_cat_booqalamoon_tokhme_boqalamoon16</item>
+        <item>@drawable/ic_cat_shotor</item>
+        <item>@drawable/ic_cat_shorot_motq_tokhmshotormorq18</item>
+        <item>@drawable/ic_cat_morq_tokhmorg19</item>
+        <item>@drawable/ic_cat_torshi</item>
+        <item>@drawable/ic_cat_ajzaye_morq21</item>
+    </integer-array>
+
+</resources>

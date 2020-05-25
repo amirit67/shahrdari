@@ -1,10 +1,10 @@
 package com.shahrdari.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shahrdari.R;
 
@@ -18,6 +18,6 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(this, MainActivity.class));
-        }, 3000);
+        }, 2000);
     }
 }

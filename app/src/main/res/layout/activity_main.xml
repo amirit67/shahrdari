@@ -27,14 +27,6 @@
                 android:layout_gravity="center" />
         </FrameLayout>
 
-        <View
-            android:id="@+id/dim_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#99000000"
-            android:visibility="gone" />
-
-        <include layout="@layout/main_bottom_sheet" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
@@ -44,21 +36,15 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#ededed" />
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@mipmap/shadow_nav_bottom"
-            android:foreground="?attr/selectableItemBackground"
-            app:elevation="1dp"
-            app:labelVisibilityMode="unlabeled"
+            app:elevation="0dp"
             app:menu="@menu/fragment_main" />
+        <!--app:labelVisibilityMode="unlabeled"-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

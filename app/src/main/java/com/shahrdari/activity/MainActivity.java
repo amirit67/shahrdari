@@ -6,17 +6,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.shahrdari.MyApp;
 import com.shahrdari.R;
 import com.shahrdari.di.HSH;
@@ -48,10 +45,7 @@ public class MainActivity extends BaseActivity implements
 
     BottomNavigationView bottomNavigationView3;
 
-    View dimView;
-    CoordinatorLayout coordinator;
-    ConstraintLayout profileCons;
-
+    BottomSheetDialog dialog;
     CardView bottomSheet;
     MainFragment mainFragment;
     private BottomSheetBehavior sheetBehavior;
@@ -66,28 +60,31 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         MyApp.getmainComponent().Inject(this);
         //getProfile();
-       // setUpBottomSheetBehavior();
         initView();
+        BottomSheetNavigation();
+        mainFragment = new MainFragment();
         fragmentStack = new FragmentStack(this, getSupportFragmentManager(), R.id.fragment_container);
-        fragmentStack.replace(new MainFragment());
+        fragmentStack.replace(mainFragment);
         bottomNavigationView3.getMenu().findItem(R.id.action_home).setChecked(true);
         bottomNavigationView3.setOnNavigationItemSelectedListener(menuItem -> {
             //check if bottom sheet is open close it
-            if (sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+           /* if (sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            } else if (menuItem.getItemId() == R.id.action_home) {
+            } else */
+            if (menuItem.getItemId() == R.id.action_home) {
                 closeKeyboard();
                 fragmentStack.replace(mainFragment);
                 return true;
-            } else if (menuItem.getItemId() == R.id.action_profile) {
+            } else if (menuItem.getItemId() == R.id.action_market) {
                 closeKeyboard();
-
                 this.menuItem = menuItem;
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                //sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                HSH.showtoast(this, "این قسمت در دست ساخت می باشد");
                 return true;
-            } else if (menuItem.getItemId() == R.id.action_search) {
+            } else if (menuItem.getItemId() == R.id.action_navigation) {
                 closeKeyboard();
-                Toast.makeText(this, "این قسمت در دست ساخت می باشد", Toast.LENGTH_SHORT).show();
+                dialog.show();
+                return true;
             }
             return false;
         });
@@ -149,34 +146,37 @@ public class MainActivity extends BaseActivity implements
     private void initView() {
         bottomNavigationView3 = findViewById(R.id.bottomNavigationView3);
         //profileCons.setOnClickListener(this);
-
+        bottomSheet = findViewById(R.id.bottom_sheet);
     }
 
 
-    private void setUpBottomSheetBehavior() {
-        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheet.setBackgroundResource(R.drawable.background);
+    public void BottomSheetNavigation() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_navigation, null);
+        dialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialog);
+        dialog.setContentView(view);
 
-        dimView.setOnClickListener(v -> sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED));
+        dialog.findViewById(R.id.tv_recent_visit).setOnClickListener(v -> {
+            /*MyPayeFragment fra = new MyPayeFragment();
+            Bundle bnd = new Bundle();
+            bnd.putString("FavoriteOrRecent", "History");
+            fra.setArguments(bnd);
+            fragmentStack.replace(fra);*/
+        });
 
-        // callback for do something
+        sheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-            public void onStateChanged(@NonNull View view, int newState) {
-                switch (newState) {
+            public void onStateChanged(@NonNull View view, int i) {
+
+                switch (i) {
 
                     case BottomSheetBehavior.STATE_HIDDEN:
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                        //menuItem.setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_close_menu));
-
+                        dialog.show();
                     }
                     break;
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        dimView.setVisibility(View.GONE);
-                        //menuItem.setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_re_menu));
-
-                        bottomNavigationView3.getMenu().findItem(R.id.action_home).setChecked(true);
                     }
                     break;
                     case BottomSheetBehavior.STATE_DRAGGING:
@@ -184,16 +184,18 @@ public class MainActivity extends BaseActivity implements
                     case BottomSheetBehavior.STATE_SETTLING:
                         break;
                 }
-
             }
 
             @Override
             public void onSlide(@NonNull View view, float v) {
-                dimView.setVisibility(View.VISIBLE);
-                dimView.setAlpha(v);
+                //setScrim(v);
+                dialog.show();
             }
         });
+        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        //ConstraintLayout c1 = view.findViewById(R.id.constraintLayout1);
     }
+
 
 
    /* @Override

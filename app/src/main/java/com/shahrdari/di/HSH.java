@@ -1,29 +1,14 @@
 package com.shahrdari.di;
 
 import android.animation.Animator;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,24 +17,13 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.shahrdari.R;
 import com.shahrdari.utils.Utils;
 
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.StringTokenizer;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 

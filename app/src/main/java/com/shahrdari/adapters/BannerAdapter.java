@@ -5,22 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.shahrdari.BuildConfig;
 import com.shahrdari.R;
+import com.shahrdari.models.BannerModel;
+import com.shahrdari.utils.NumberUtil;
 
 import java.util.List;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder> {
 
-    private final List<String> mValues;
+    private final List<BannerModel> mValues;
     private Context fragment;
 
-    public BannerAdapter(List<String> mValues, Context fragment) {
+    public BannerAdapter(List<BannerModel> mValues, Context fragment) {
         this.mValues = mValues;
         this.fragment = fragment;
     }
@@ -53,25 +57,26 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public final View mView;
-        public String mItem;
+        public final ImageView mView;
+        public TextView tvPrice;
+        public BannerModel mItem;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
+            mView = view.findViewById(R.id.banner_img);
+            tvPrice = view.findViewById(R.id.tv_price);
         }
 
 
-        void bindTo(String responseItem) {
-
+        void bindTo(BannerModel responseItem) {
+            tvPrice.setText(NumberUtil.getPriceFormat(responseItem.getMahfi()) + " ريال");
             Glide.with(fragment)
-                    .load(responseItem)
+                    .load(BuildConfig.BASEURL + responseItem.getMahpic())
                     /* .diskCacheStrategy(DiskCacheStrategy.NONE)
                      .skipMemoryCache(true)*/
                     .apply(new RequestOptions()
-                            .placeholder(R.drawable.ic_content)
                             .centerCrop())
-                    .into((ImageView) this.mView);
+                    .into(this.mView);
 
         }
 
