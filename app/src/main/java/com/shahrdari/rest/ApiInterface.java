@@ -2,6 +2,7 @@ package com.shahrdari.rest;
 
 import com.shahrdari.models.BannerModel;
 import com.shahrdari.models.ProductItem;
+import com.shahrdari.models.RateModel;
 
 import java.util.List;
 
@@ -45,5 +46,8 @@ public interface ApiInterface {
 
     @GET("api_view4")
     Call<List<ProductItem>> GetProductsGroup4(@Query("cod") String cod);
+
+    @GET("api_viewlistnerkhnameh")
+    Call<List<RateModel>> GetRating();
 
 }

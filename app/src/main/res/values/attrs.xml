@@ -92,87 +92,8 @@
     </declare-styleable>
 
 
-    <declare-styleable name="ProperRatingBar">
-
-        <!-- Total number of ticks to show. Default is '5' -->
-        <attr name="prb_totalTicks" format="integer" />
-
-        <!-- Use this to set rating from xml. Default is '3' -->
-        <attr name="prb_defaultRating" format="integer" />
-
-        <!-- If set to 'true' - use will be able to change rating by clicking. Default is 'false' -->
-        <attr name="prb_clickable" format="boolean" />
-
-
-        <!-- Symbol to be used as a tick. Default is '$' -->
-        <attr name="prb_symbolicTick" format="string" />
-
-        <!-- Text size of symbolic tick. Default is '15sp' -->
-        <attr name="android:textSize" />
-
-        <!-- Text style of symbolic tick. Possible: 'bold', 'italic', 'normal'. Default is 'normal'. -->
-        <attr name="android:textStyle" />
-
-        <!-- Color of symbolic tick that is not selected (not rated). Default is '#FF000000' (black). -->
-        <attr name="prb_symbolicTickNormalColor" format="reference|color" />
-
-        <!-- Color of symbolic tick that is selected (rated). Default is '#FF888888' (gray). -->
-        <attr name="prb_symbolicTickSelectedColor" format="reference|color" />
-
-
-        <!-- Drawable resource to use as a tick that is not selected (not rated). No default value. -->
-        <attr name="prb_tickNormalDrawable" format="reference" />
-
-        <!-- Drawable resource to use as a tick that is selected (rated). No default value. -->
-        <attr name="prb_tickSelectedDrawable" format="reference" />
-
-        <!-- Margin to be applied to tick drawables. Only applies to drawable-type ticks. Default is '1dp' (gray). -->
-        <attr name="prb_tickSpacing" format="dimension" />
-    </declare-styleable>
-    <item name="prb_tick_tag_id" type="id" />
-
-
-    <declare-styleable name="amir">
-        <attr name="nvmIcon" format="reference" />
-        <attr name="nvmIconHeight" format="dimension" />
-        <attr name="nvmIconWith" format="dimension" />
-        <attr name="nvmTitle" format="string" />
-        <attr name="nvmTitleColor" format="reference" />
-        <attr name="nvmTitleGravity">
-            <enum name="CENTER" value="17" />
-            <enum name="LEFT" value="3" />
-            <enum name="RIGHT" value="5" />
-        </attr>
-        <attr name="nvmTitleHeight" format="dimension" />
-        <attr name="nvmTitleMarginBottom" format="dimension" />
-        <attr name="nvmTitleMarginLeft" format="dimension" />
-        <attr name="nvmTitleMarginRight" format="dimension" />
-        <attr name="nvmTitleMarginTop" format="dimension" />
-        <attr name="nvmTitleSize" format="dimension" />
-        <attr name="nvmTitleWith" format="dimension" />
-
-        <attr name="nvmType">
-            <enum name="ABOUT" value="263" />
-            <enum name="WALLET" value="133" />
-            <enum name="STATISTIC" value="253" />
-            <enum name="CALL_ANSWER" value="223" />
-            <enum name="CONTACTS" value="203" />
-            <enum name="FAVORITE" value="123" />
-            <enum name="HELP" value="243" />
-            <enum name="MY_PROFILE_REPLAY_COMMENT" value="183" />
-            <enum name="NOTIFICATIONS" value="193" />
-            <enum name="TRANSACTION" value="300" />
-            <enum name="PRICE_LIST" value="213" />
-            <enum name="REQUEST_MASTER" value="163" />
-            <enum name="SUPPORT_CONTACT_US" value="153" />
-            <enum name="USER_JOBS" value="113" />
-            <enum name="VACATION" value="173" />
-            <enum name="ABOUT_US" value="143" />
-            <enum name="BASKET" value="273" />
-            <enum name="POLL" value="283" />
-            <enum name="GUIDE" value="293" />
-            <enum name="REGISTER_ADS" value="295" />
-        </attr>
+    <declare-styleable name="ExpandableTextView">
+        <attr name="animation_duration" format="integer"/>
     </declare-styleable>
 
 

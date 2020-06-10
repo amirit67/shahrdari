@@ -3,6 +3,7 @@ package com.shahrdari.remote.repository;
 import com.shahrdari.MyApp;
 import com.shahrdari.models.BannerModel;
 import com.shahrdari.models.ProductItem;
+import com.shahrdari.models.RateModel;
 import com.shahrdari.rest.ApiInterface;
 
 import java.util.List;
@@ -57,6 +58,13 @@ public class RemoteRepository implements Repository {
         Call<List<ProductItem>> getProducts =
                 apiInterface.GetProductsGroup4(code);
         return getProducts;
+    }
+
+    @Override
+    public Call<List<RateModel>> getRating() {
+        Call<List<RateModel>> getRating =
+                apiInterface.GetRating();
+        return getRating;
     }
 
 

@@ -140,7 +140,6 @@
                         android:layout_marginRight="2dp"
                         android:ellipsize="end"
                         android:gravity="right"
-                        android:maxLength="10"
                         android:maxLines="1"
                         android:text="۹۰۰"
                         android:textColor="#f55227" />

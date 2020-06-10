@@ -86,7 +86,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }*/
 
 
-                Holder.code.setText(String.valueOf(feed.get(i).getMahcod()));
+                String s = String.valueOf(feed.get(i).getMahcod());
+                Holder.code.setText(s.length() > 8 ? s.substring(s.length() - 8) : s);
                 Holder.tvDescription.setText(String.valueOf(feed.get(i).getMahdetail()));
 
                 Glide.with(mContext)

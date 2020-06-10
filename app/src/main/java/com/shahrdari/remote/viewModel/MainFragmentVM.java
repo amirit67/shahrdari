@@ -3,7 +3,9 @@ package com.shahrdari.remote.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.shahrdari.interactor.MainView;
+import com.shahrdari.interactor.RateView;
 import com.shahrdari.models.BannerModel;
+import com.shahrdari.models.RateModel;
 import com.shahrdari.remote.repository.RemoteRepository;
 
 import java.util.List;
@@ -37,6 +39,26 @@ public class MainFragmentVM extends ViewModel {
 
             @Override
             public void onFailure(Call<List<BannerModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void GetRates(RateView rateView) {
+
+        mainRemoteRepository.getRating().enqueue(new Callback<List<RateModel>>() {
+            @Override
+            public void onResponse(Call<List<RateModel>> call, Response<List<RateModel>> response) {
+                if (response.isSuccessful()) {
+
+                    rateView.onGetRates(response.body());
+                } else {
+                    //mainView.showMessage(R.string.general_error);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RateModel>> call, Throwable t) {
 
             }
         });

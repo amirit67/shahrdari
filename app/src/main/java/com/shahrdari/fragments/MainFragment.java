@@ -69,6 +69,7 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
         recyclerView = rootView.findViewById(R.id.recycler_banner);
         fragmentStack = new FragmentStack(getActivity(), getFragmentManager(), R.id.fragment_container);
         rootView.findViewById(R.id.imageView).setOnClickListener(this::onClick);
+        rootView.findViewById(R.id.imageView5).setOnClickListener(this::onClick);
         rootView.findViewById(R.id.imageView3).setOnClickListener(this::onClick);
         /*txtName.setText(MyApp.getInstance().getPreferences().getString(Constants.Name, "") + "، خوش آمدی");
 
@@ -147,8 +148,8 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button2:
-                //fragmentStack.replace(new CreditFragment());
+            case R.id.imageView5:
+                fragmentStack.replace(new RateFragment());
                 break;
             case R.id.textView26:
                 //fragmentStack.replace(ProfileFragment.newInstance(myUser));

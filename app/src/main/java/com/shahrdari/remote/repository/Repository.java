@@ -3,6 +3,7 @@ package com.shahrdari.remote.repository;
 
 import com.shahrdari.models.BannerModel;
 import com.shahrdari.models.ProductItem;
+import com.shahrdari.models.RateModel;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface Repository {
     Call<List<ProductItem>> getProducts3(String code);
 
     Call<List<ProductItem>> getProducts4(String code);
+
+    Call<List<RateModel>> getRating();
 
 
 }
