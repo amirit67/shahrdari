@@ -2,7 +2,6 @@ package com.shahrdari.interactor;
 
 import androidx.annotation.UiThread;
 
-import com.shahrdari.models.ProductItem;
 import com.shahrdari.models.RateModel;
 
 import java.util.List;

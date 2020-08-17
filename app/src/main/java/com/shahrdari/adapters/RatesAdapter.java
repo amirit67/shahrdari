@@ -1,28 +1,17 @@
 package com.shahrdari.adapters;
 
 import android.content.Context;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.shahrdari.BuildConfig;
 import com.shahrdari.R;
-import com.shahrdari.models.ProductItem;
 import com.shahrdari.models.RateModel;
 import com.shahrdari.utils.ExpandableTextView;
-import com.shahrdari.utils.NumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,13 +68,10 @@ public class RatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 Holder.itemView.setOnClickListener(v -> {
                     Holder.detail.toggle();
-                    if (Holder.detail.isExpanded())
-                    {
+                    if (Holder.detail.isExpanded()) {
                         Holder.detail.collapse();
                         Holder.more.setText("بیشتر");
-                    }
-                    else
-                    {
+                    } else {
                         Holder.detail.expand();
                         Holder.more.setText("بستن");
                     }
@@ -101,11 +87,6 @@ public class RatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return ((feed.size() != 0) ? feed.size() : 0);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(String s);
-    }
-
-
     public void addItems(List<RateModel> posts) {
         this.feed.addAll(posts);
         notifyDataSetChanged();
@@ -116,6 +97,9 @@ public class RatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(String s);
+    }
 
     public class RateHolder extends RecyclerView.ViewHolder {
 

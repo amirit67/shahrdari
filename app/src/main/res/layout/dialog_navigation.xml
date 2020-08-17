@@ -29,52 +29,51 @@
                 android:id="@+id/tv_setting"
                 style="@style/ProfileItem"
                 android:layout_width="0dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:text="اعلان ها"
-                android:textColor="#666666"
                 android:fontFamily="@font/yekanregular"
-                app:layout_constraintBottom_toTopOf="@+id/tv_bookmark"
+                android:text="پیشنهادات و انتقادات"
+                android:textColor="#666666"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/tv_support"
                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
             <TextView
-                android:id="@+id/tv_bookmark"
+                android:id="@+id/tv_support"
                 style="@style/ProfileItem"
                 android:layout_width="0dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/yekanregular"
                 android:text="پشتیبانی"
                 android:textColor="#666666"
-                app:layout_constraintBottom_toTopOf="@+id/tv_recent_visit"
+                app:layout_constraintBottom_toTopOf="@+id/tv_contact"
                 app:layout_constraintEnd_toEndOf="@+id/tv_setting"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_setting" />
 
             <TextView
-                android:id="@+id/tv_recent_visit"
+                android:id="@+id/tv_contact"
                 style="@style/ProfileItem"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="24dp"
                 android:fontFamily="@font/yekanregular"
                 android:text="تماس با ما"
                 android:textColor="#666666"
-                app:layout_constraintBottom_toTopOf="@+id/tv_transaction"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="@+id/tv_setting"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bookmark" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_support" />
 
             <TextView
-                android:id="@+id/tv_transaction"
+                android:id="@+id/tv_about"
                 style="@style/ProfileItem"
                 android:layout_width="0dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/yekanregular"
                 android:text="درباره"
@@ -83,7 +82,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/tv_setting"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_recent_visit" />
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <View
                 android:id="@+id/textView39"
@@ -101,7 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/ic_bell"
+                android:src="@drawable/ic_conversation"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_setting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_setting" />
@@ -111,29 +111,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_transaction"
-                app:layout_constraintTop_toTopOf="@+id/tv_transaction"
-                android:src="@drawable/ic_bell" />
+                app:layout_constraintStart_toEndOf="@+id/tv_about"
+                app:layout_constraintTop_toTopOf="@+id/tv_about"
+                android:src="@drawable/ic_info" />
 
             <ImageView
                 android:id="@+id/imageView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_headphones"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_bookmark"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_support"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_bookmark"
-                app:layout_constraintTop_toTopOf="@+id/tv_bookmark" />
+                app:layout_constraintStart_toEndOf="@+id/tv_support"
+                app:layout_constraintTop_toTopOf="@+id/tv_support" />
 
             <ImageView
                 android:id="@+id/imageView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_recent_visit"
+                android:src="@drawable/ic_phone_"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_contact"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_recent_visit"
-                app:layout_constraintTop_toTopOf="@+id/tv_recent_visit" />
+                app:layout_constraintStart_toEndOf="@+id/tv_contact"
+                app:layout_constraintTop_toTopOf="@+id/tv_contact" />
 
             <View
                 android:id="@+id/textView3"
@@ -142,7 +142,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:background="#EFEFEF"
-                app:layout_constraintBottom_toTopOf="@+id/tv_bookmark"
+                app:layout_constraintBottom_toTopOf="@+id/tv_support"
                 app:layout_constraintEnd_toEndOf="@+id/tv_setting"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_setting" />
@@ -153,11 +153,13 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="#EFEFEF"
-                app:layout_constraintBottom_toTopOf="@+id/tv_recent_visit"
-                app:layout_constraintEnd_toEndOf="@+id/tv_bookmark"
+                app:layout_constraintBottom_toTopOf="@+id/tv_contact"
+                app:layout_constraintEnd_toEndOf="@+id/tv_support"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bookmark" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_support" />
 
             <View
                 android:id="@+id/textView5"
@@ -165,11 +167,13 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="#EFEFEF"
-                app:layout_constraintBottom_toTopOf="@+id/tv_transaction"
-                app:layout_constraintEnd_toEndOf="@+id/tv_recent_visit"
+                app:layout_constraintBottom_toTopOf="@+id/tv_about"
+                app:layout_constraintEnd_toEndOf="@+id/tv_contact"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_recent_visit" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_contact" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

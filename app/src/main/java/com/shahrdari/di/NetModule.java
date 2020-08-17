@@ -6,8 +6,6 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.shahrdari.Constants;
-import com.shahrdari.MyApp;
 import com.shahrdari.rest.ApiInterface;
 
 import java.util.concurrent.TimeUnit;
@@ -64,8 +62,6 @@ public class NetModule {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder()
                     .header("Content-Type", "application/x-www-form-urlencoded")
-                    .header(Constants.Authorization,
-                            MyApp.getInstance().getPreferences().getString(Constants.Token, ""))
                     /*.header(BuildConfig.UserId,
                             Application.getInstance().getPreferences().getString(BuildConfig.UserId, ""))*/;
             Request request = requestBuilder.build();

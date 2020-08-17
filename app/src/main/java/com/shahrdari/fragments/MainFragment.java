@@ -1,52 +1,50 @@
 package com.shahrdari.fragments;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.shahrdari.R;
 import com.shahrdari.adapters.BannerAdapter;
-import com.shahrdari.adapters.MarqueeAdapter;
+import com.shahrdari.di.HSH;
 import com.shahrdari.interactor.MainView;
 import com.shahrdari.models.BannerModel;
-import com.shahrdari.models.marqueeObject;
+import com.shahrdari.models.WeatherModel;
 import com.shahrdari.remote.viewModel.MainFragmentVM;
-import com.shahrdari.utils.CircleImageView;
-import com.shahrdari.utils.RecyclerSnapHelper;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class MainFragment extends Fragment implements MainView, View.OnClickListener {
 
     protected View rootView;
     RecyclerView recyclerMarquee;
-    CircleImageView circleImageView;
-    TextView txtName;
-    RecyclerView recyclerView;
-    ScrollingPagerIndicator indicator;
+    SliderView recyclerView;
     MainFragmentVM mainFragmentVM = new MainFragmentVM();
     private FragmentStack fragmentStack;
     @Nullable
     private BannerAdapter mBannerAdapter;
-
-    @Nullable
-    private MarqueeAdapter marqueeAdapter;
+    private ImageView btnSrch;
+    private ImageView imgClear, imgSearch;
+    private EditText editSrch;
+    private LinearLayout searchBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,66 +66,40 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
     private void initView() {
         recyclerView = rootView.findViewById(R.id.recycler_banner);
         fragmentStack = new FragmentStack(getActivity(), getFragmentManager(), R.id.fragment_container);
+        rootView.findViewById(R.id.imageView1).setOnClickListener(this::onClick);
+        rootView.findViewById(R.id.imageView2).setOnClickListener(this::onClick);
+        rootView.findViewById(R.id.imageView4).setOnClickListener(this::onClick);
         rootView.findViewById(R.id.imageView).setOnClickListener(this::onClick);
         rootView.findViewById(R.id.imageView5).setOnClickListener(this::onClick);
         rootView.findViewById(R.id.imageView3).setOnClickListener(this::onClick);
-        /*txtName.setText(MyApp.getInstance().getPreferences().getString(Constants.Name, "") + "، خوش آمدی");
-
-        setupRecyclerView();*/
+        rootView.findViewById(R.id.imageView7).setOnClickListener(this::onClick);
+        searchBar = rootView.findViewById(R.id.search_bar);
+        btnSrch = rootView.findViewById(R.id.btn_srch);
+        editSrch = rootView.findViewById(R.id.edit_srch);
+        imgClear = rootView.findViewById(R.id.btn_clear);
+        imgSearch = rootView.findViewById(R.id.imgSearch);
+        btnSrch.setOnClickListener(v ->
+        {
+            closeKeyboard();
+            searchBar.setVisibility(View.INVISIBLE);
+            fragmentStack.replace(ProductsFragment.newInstance("-" + editSrch.getText().toString().trim() + "-"));
+        });
+        editSrch.setOnEditorActionListener((v, actionId, event) -> {
+            closeKeyboard();
+            searchBar.setVisibility(View.INVISIBLE);
+            fragmentStack.replace(ProductsFragment.newInstance(editSrch.getText().toString().trim()));
+            return true;
+        });
+        imgClear.setOnClickListener(v -> HSH.hide(getActivity(), searchBar));
+        imgSearch.setOnClickListener(v -> HSH.display(getActivity(), searchBar));
+        /*setupRecyclerView();*/
     }
 
-    private void setupRecyclerView() {
-        //Marquee
-
-        boolean flag;
-        List<marqueeObject> myList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0) flag = false;
-            else flag = true;
-            myList.add(new marqueeObject("انس طلا " + i, "۱۵۰۲.۷۴", flag));
+    public void closeKeyboard() {
+        try {
+            ((InputMethodManager) getActivity().getSystemService("input_method")).hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 2);
+        } catch (Exception e) {
         }
-
-
-        marqueeAdapter = new MarqueeAdapter(getActivity(), myList, position -> {
-        });
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
-            @Override
-            public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
-                LinearSmoothScroller smoothScroller = new LinearSmoothScroller(getActivity()) {
-                    private static final float SPEED = 1000000f;// Change this value (default=25f)
-
-                    @Override
-                    protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-                        return SPEED / displayMetrics.densityDpi;
-                    }
-                };
-                smoothScroller.setTargetPosition(position);
-                startSmoothScroll(smoothScroller);
-            }
-
-        };
-
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManager.setReverseLayout(true);
-        recyclerMarquee.setLayoutManager(layoutManager);
-        recyclerMarquee.setAdapter(marqueeAdapter);
-        autoScroll();
-
-
-        recyclerMarquee.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
-                if (firstItemVisible != 0 && firstItemVisible % myList.size() == 0) {
-                    Objects.requireNonNull(recyclerView.getLayoutManager()).scrollToPosition(0);
-                }
-            }
-        });
-
-
     }
 
     public void autoScroll() {
@@ -151,27 +123,25 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
             case R.id.imageView5:
                 fragmentStack.replace(new RateFragment());
                 break;
-            case R.id.textView26:
-                //fragmentStack.replace(ProfileFragment.newInstance(myUser));
+            case R.id.imageView1:
+                fragmentStack.replace(new ClubFragment());
                 break;
             case R.id.imageView:
                 fragmentStack.replace(new FragmentCategoriesProduct());
                 break;
             case R.id.imageView2:
-                //fragmentStack.replace(new FragmentQuestion());
+                fragmentStack.replace(new FestivalFragment());
                 break;
             case R.id.imageView3:
                 fragmentStack.replace(new EducationFragment());
 //                HSH.getInstance().onOpenPage(getActivity(), SignalMainActivity.class);
-                Toast.makeText(getActivity(), "این قسمت در دست ساخت می باشد", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.imageView4:
-                //fragmentStack.replace(new FragmentMarket());
-                Toast.makeText(getActivity(), "این قسمت در دست ساخت می باشد", Toast.LENGTH_SHORT).show();
+                fragmentStack.replace(new MarketsFragment());
                 break;
             case R.id.imageView6:
             case R.id.imageView7:
-                Toast.makeText(getActivity(), "این قسمت در دست ساخت می باشد", Toast.LENGTH_SHORT).show();
+                mainFragmentVM.GetWeather(this);
                 break;
         }
     }
@@ -179,18 +149,50 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
     @Override
     public void onGetBanner(List<BannerModel> bannerModel) {
 
-        indicator = rootView.findViewById(R.id.indicator);
-        mBannerAdapter = new BannerAdapter(bannerModel, getActivity());
-//        recyclerView.setAdapter(mBannerAdapter);
+        SliderView sliderView = rootView.findViewById(R.id.recycler_banner);
 
-        RecyclerSnapHelper snapHelper = new RecyclerSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setAdapter(mBannerAdapter);
+        mBannerAdapter = new BannerAdapter(getActivity());
 
-        indicator.attachToRecyclerView(recyclerView);
-        indicator.setSelectedDotColor(getResources().getColor(R.color.white));
-        indicator.setVisibleDotCount(3);
+        mBannerAdapter.renewItems(bannerModel);
+        sliderView.setSliderAdapter(mBannerAdapter);
 
+        //sliderView.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+        sliderView.startAutoCycle();
+
+    }
+
+    @Override
+    public void onGetWeather(List<WeatherModel> weatherModels) {
+        View view = getLayoutInflater().inflate(R.layout.dialog_weather, null);
+        BottomSheetDialog dialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialog);
+        dialog.setContentView(view);
+
+        WeatherModel model = weatherModels.get(0);
+        String date = model.getDateY() + "/" + model.getDateM() + "/" + model.getDateR();
+        ((TextView) dialog.findViewById(R.id.tvTitle)).setText("وضعیت هوا در تاریخ " + date);
+        ((TextView) dialog.findViewById(R.id.txt_number)).setText(String.valueOf(model.getNumberWeather()));
+        ((TextView) dialog.findViewById(R.id.tvMarketName)).setText(model.getTxtWeather().trim());
+        int i = model.getNumberWeather();
+        ((TextView) dialog.findViewById(R.id.tvMarketName)).setTextColor(i < 50 ? Color.parseColor("#00A659") :
+                i < 100 ? Color.parseColor("#fed700") :
+                        i < 150 ? Color.parseColor("#f29b12") :
+                                i < 200 ? Color.parseColor("#fd0100") :
+                                        i < 300 ? Color.parseColor("#FF673AB7") :
+                                                Color.parseColor("#FFDA3400"));
+        //EditText etComment = dialog.findViewById(R.id.etComment);
+        //CircleImageView imgMarket = dialog.findViewById(R.id.card_img);
+        //ProperRatingBar rate = dialog.findViewById(R.id.ratingBar);
+        //ProgressBar pb = dialog.findViewById(R.id.pb);
+        /*Glide.with(getActivity())
+                .load(BuildConfig.BASEURL + s.getPic())
+                .into(imgMarket);*/
+
+        dialog.show();
     }
 
     @Override
@@ -201,5 +203,16 @@ public class MainFragment extends Fragment implements MainView, View.OnClickList
     @Override
     public void showMessage(int resource) {
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#FFCF1161"));
+        }
     }
 }

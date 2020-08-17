@@ -80,7 +80,7 @@ public class ItemDecorationAlbumColumns2 extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
         if (mOrientation == VERTICAL_LIST) {
             // outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-            outRect.set(32, 32, 8, 8);
+            outRect.set(10, 40, 20, 0);
         } else {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
         }

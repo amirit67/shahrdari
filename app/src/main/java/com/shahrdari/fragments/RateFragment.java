@@ -3,13 +3,15 @@ package com.shahrdari.fragments;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,18 +20,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
-import com.shahrdari.BuildConfig;
 import com.shahrdari.R;
-import com.shahrdari.adapters.ProductsAdapter;
 import com.shahrdari.adapters.RatesAdapter;
 import com.shahrdari.di.HSH;
-import com.shahrdari.interactor.ProductsView;
 import com.shahrdari.interactor.RateView;
-import com.shahrdari.models.ProductItem;
 import com.shahrdari.models.RateModel;
 import com.shahrdari.remote.viewModel.MainFragmentVM;
-import com.shahrdari.remote.viewModel.ProductsFragmentVM;
 import com.shahrdari.utils.ItemDecorationAlbumColumns;
 
 import java.util.List;
@@ -134,6 +130,12 @@ public class RateFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
 
         super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#FFCF1161"));
+        }
 
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();

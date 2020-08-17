@@ -12,8 +12,11 @@ public class ProductItem {
     @SerializedName("mahid")
     private int mahid;
 
+    @SerializedName("mahgroup")
+    private String mahgroup;
+
     @SerializedName("mahcod")
-    private long mahcod;
+    private String mahcod;
 
     @SerializedName("mahname")
     private String mahname;
@@ -47,8 +50,8 @@ public class ProductItem {
         return mahid;
     }
 
-    public long getMahcod() {
-        return mahcod;
+    public String getMahcod() {
+        return TextUtils.isEmpty(mahcod) ? "" : mahcod;
     }
 
     public String getMahname() {
@@ -82,4 +85,9 @@ public class ProductItem {
     public String getMahpic() {
         return mahpic;
     }
+
+    public String getMahgroup() {
+        return mahgroup;
+    }
+
 }

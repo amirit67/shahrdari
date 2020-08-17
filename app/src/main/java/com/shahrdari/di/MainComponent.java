@@ -1,8 +1,8 @@
 package com.shahrdari.di;
 
+import com.shahrdari.UpdateCheckerAsynkTask;
 import com.shahrdari.activity.MainActivity;
 import com.shahrdari.remote.repository.RemoteRepository;
-import com.shahrdari.utils.Networking.ConnectionBuddy;
 
 import javax.inject.Singleton;
 
@@ -15,8 +15,7 @@ public interface MainComponent {
 
     void Inject(RemoteRepository remoteRepository);
 
-
-    void Inject(ConnectionBuddy connectionBuddy);
+    void Inject(UpdateCheckerAsynkTask updateCheckerAsynkTask);
 
     void Inject(MainActivity mainActivity);
 

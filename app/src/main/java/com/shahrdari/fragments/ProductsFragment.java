@@ -3,15 +3,19 @@ package com.shahrdari.fragments;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,8 +41,6 @@ public class ProductsFragment extends Fragment implements View.OnClickListener {
     String code = "1";
     ProductsFragmentVM productsFragmentVM = new ProductsFragmentVM();
     private RecyclerView rv;
-    private boolean isLoading;
-    private int Cnt = 0;
     private SwipeRefreshLayout swipeContainer;
     private ProgressBar pb;
     private ProductsAdapter adapter;
@@ -87,7 +89,8 @@ public class ProductsFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onGetProducts(List<ProductItem> productItems) {
                 try {
-                    isLoading = false;
+                    if (productItems.size() == 0)
+                        Toast.makeText(getActivity(), "محصولی یافت نشد", Toast.LENGTH_SHORT).show();
                     swipeContainer.setRefreshing(false);
                     pb.setVisibility(View.GONE);
                     adapter.addItems(productItems);
@@ -101,36 +104,59 @@ public class ProductsFragment extends Fragment implements View.OnClickListener {
             @Override
             public void showMessage(String msg) {
                 Log.e("onError", msg);
-                HSH.showtoast(ac, "خطا در اتصال به اینترنت");
+                HSH.showtoast(ac, "خطا در ارتباط با سرور");
                 swipeContainer.setRefreshing(false);
                 pb.setVisibility(View.GONE);
             }
 
             @Override
             public void showMessage(int resource) {
-
+                HSH.showtoast(ac, "خطا در ارتباط با سرور");
+                swipeContainer.setRefreshing(false);
+                pb.setVisibility(View.GONE);
             }
         };
 
         String s1 = "-1-2-6-15-16-17-18-19-20-21-";
         String s2 = "-3-";
         String s3 = "-8-9-10-";
-        //String s4 = "-4-5-7-11-12-13-14-";
-        if (s1.contains(code))
-            productsFragmentVM.GetProducts1(productsView, code.replace("-", ""));
-        else if (s2.contains(code))
-            productsFragmentVM.GetProducts2(productsView, code.replace("-", ""));
-        else if (s3.contains(code))
-            productsFragmentVM.GetProducts3(productsView, code.replace("-", ""));
-        else
-            productsFragmentVM.GetProducts4(productsView, code.replace("-", ""));
+        String s4 = "-4-5-7-11-12-13-14-";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            if (s1.contains(code))
+                window.setStatusBarColor(Color.parseColor("#FFCF1161"));
+            else if (s2.contains(code))
+                window.setStatusBarColor(Color.parseColor("#FF62AC03"));
+            else if (s3.contains(code))
+                window.setStatusBarColor(Color.parseColor("#FF14CF3D"));
+            else if (s4.contains(code))
+                window.setStatusBarColor(Color.parseColor("#B700B7F1"));
+            else
+                window.setStatusBarColor(Color.parseColor("#FFCF1161"));
+        }
 
+        if (s1.contains(code)) {
+            rootView.findViewById(R.id.csParent).setBackgroundResource(R.drawable.ic_intersect_1);
+            productsFragmentVM.GetProducts1(productsView, code.replace("-", ""));
+        } else if (s2.contains(code)) {
+            rootView.findViewById(R.id.csParent).setBackgroundResource(R.drawable.ic_intersect_2);
+            productsFragmentVM.GetProducts2(productsView, code.replace("-", ""));
+        } else if (s3.contains(code)) {
+            rootView.findViewById(R.id.csParent).setBackgroundResource(R.drawable.ic_intersect_3);
+            productsFragmentVM.GetProducts3(productsView, code.replace("-", ""));
+        } else if (s4.contains(code)) {
+            rootView.findViewById(R.id.csParent).setBackgroundResource(R.drawable.ic_intersect_4);
+            productsFragmentVM.GetProducts4(productsView, code.replace("-", ""));
+        } else {
+            rootView.findViewById(R.id.csParent).setBackgroundResource(R.drawable.ic_intersect_1);
+            productsFragmentVM.SearchProducts(productsView, code.replace("-", ""));
+        }
     }
 
 
     public void DeclareElements() {
         rootView.findViewById(R.id.img_back).setOnClickListener(v -> getFragmentManager().popBackStack());
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getResources().getStringArray(R.array.categoryTitle)[Integer.parseInt(code.replace("-", "")) - 1]);
         swipeContainer = rootView.findViewById(R.id.swipeContainer);
         pb = rootView.findViewById(R.id.pb);
         rv = rootView.findViewById(R.id.rv_products);
@@ -143,6 +169,11 @@ public class ProductsFragment extends Fragment implements View.OnClickListener {
         });
         rv.setAdapter(adapter);
 
+        try {
+            ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getResources().getStringArray(R.array.categoryTitle)[Integer.parseInt(code.replace("-", "")) - 1]);
+        } catch (Exception e) {
+            ((TextView) rootView.findViewById(R.id.toolbar_title)).setText("جستجوی " + code);
+        }
     }
 
     @Override

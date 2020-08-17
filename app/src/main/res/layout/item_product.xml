@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -141,10 +142,10 @@
                         android:ellipsize="end"
                         android:gravity="right"
                         android:maxLines="1"
-                        android:text="۹۰۰"
                         android:textColor="#f55227" />
 
                     <TextView
+                        android:id="@+id/tvCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

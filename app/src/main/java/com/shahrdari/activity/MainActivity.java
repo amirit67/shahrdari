@@ -1,6 +1,7 @@
 package com.shahrdari.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.shahrdari.MyApp;
 import com.shahrdari.R;
+import com.shahrdari.UpdateCheckerAsynkTask;
 import com.shahrdari.di.HSH;
 import com.shahrdari.fragments.FragmentStack;
 import com.shahrdari.fragments.MainFragment;
@@ -88,6 +90,7 @@ public class MainActivity extends BaseActivity implements
             }
             return false;
         });
+        new UpdateCheckerAsynkTask(MainActivity.this).GetData();
     }
 
     @Override
@@ -155,12 +158,33 @@ public class MainActivity extends BaseActivity implements
         dialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialog);
         dialog.setContentView(view);
 
-        dialog.findViewById(R.id.tv_recent_visit).setOnClickListener(v -> {
-            /*MyPayeFragment fra = new MyPayeFragment();
-            Bundle bnd = new Bundle();
-            bnd.putString("FavoriteOrRecent", "History");
-            fra.setArguments(bnd);
-            fragmentStack.replace(fra);*/
+        dialog.findViewById(R.id.tv_setting).setOnClickListener(v -> {
+            dialog.dismiss();
+            Uri number = Uri.parse("tel:02632532226");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+            mContext.startActivity(callIntent);
+        });
+
+        dialog.findViewById(R.id.tv_support).setOnClickListener(v -> {
+            dialog.dismiss();
+            Uri number = Uri.parse("tel:02632532223");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+            mContext.startActivity(callIntent);
+        });
+
+        dialog.findViewById(R.id.tv_contact).setOnClickListener(v -> {
+            dialog.dismiss();
+            Uri number = Uri.parse("tel:02632544243");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+            mContext.startActivity(callIntent);
+        });
+
+        dialog.findViewById(R.id.tv_about).setOnClickListener(v -> {
+            dialog.dismiss();
+            View view1 = getLayoutInflater().inflate(R.layout.dialog_about, null);
+            BottomSheetDialog dialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialog);
+            dialog.setContentView(view1);
+            dialog.show();
         });
 
         sheetBehavior = BottomSheetBehavior.from((View) view.getParent());

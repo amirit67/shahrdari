@@ -6,6 +6,7 @@ import com.shahrdari.interactor.MainView;
 import com.shahrdari.interactor.RateView;
 import com.shahrdari.models.BannerModel;
 import com.shahrdari.models.RateModel;
+import com.shahrdari.models.WeatherModel;
 import com.shahrdari.remote.repository.RemoteRepository;
 
 import java.util.List;
@@ -43,6 +44,27 @@ public class MainFragmentVM extends ViewModel {
             }
         });
     }
+
+    public void GetWeather(MainView mainView) {
+
+        mainRemoteRepository.getWeather().enqueue(new Callback<List<WeatherModel>>() {
+            @Override
+            public void onResponse(Call<List<WeatherModel>> call, Response<List<WeatherModel>> response) {
+                if (response.isSuccessful()) {
+
+                    mainView.onGetWeather(response.body());
+                } else {
+                    //mainView.showMessage(R.string.general_error);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<WeatherModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     public void GetRates(RateView rateView) {
 

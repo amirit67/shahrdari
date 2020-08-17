@@ -2,6 +2,7 @@ package com.shahrdari.remote.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import com.shahrdari.R;
 import com.shahrdari.interactor.ProductsView;
 import com.shahrdari.models.ProductItem;
 import com.shahrdari.remote.repository.RemoteRepository;
@@ -30,13 +31,18 @@ public class ProductsFragmentVM extends ViewModel {
                 if (response.isSuccessful()) {
                     productsView.onGetProducts(response.body());
                 } else {
-                    //mainView.showMessage(R.string.general_error);
+                    try {
+                        String s = response.errorBody().string();
+                        productsView.showMessage(s);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<ProductItem>> call, Throwable t) {
-
+                productsView.showMessage("خطا در اتصال به اینترنت");
             }
         });
     }
@@ -97,6 +103,27 @@ public class ProductsFragmentVM extends ViewModel {
             }
         });
     }
+
+
+    public void SearchProducts(ProductsView productsView, String txt) {
+
+        mainRemoteRepository.SearchProducts(txt).enqueue(new Callback<List<ProductItem>>() {
+            @Override
+            public void onResponse(Call<List<ProductItem>> call, Response<List<ProductItem>> response) {
+                if (response.isSuccessful()) {
+                    productsView.onGetProducts(response.body());
+                } else {
+                    productsView.showMessage("");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductItem>> call, Throwable t) {
+                productsView.showMessage(R.string.general_error);
+            }
+        });
+    }
+
 
     @Override
     protected void onCleared() {

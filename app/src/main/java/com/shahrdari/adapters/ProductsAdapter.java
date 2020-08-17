@@ -3,6 +3,7 @@ package com.shahrdari.adapters;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,15 +66,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
                 Holder.unitTextView.setVisibility(View.GONE);
-                int sizeTitle = feed.get(i).getMahname().length() + feed.get(i).getMahdarajeh().length() + 2;
-                int sizeUnit = feed.get(i).getMahvahed().length() + feed.get(i).getMahsize().length() + 1;
-                Spannable nametoSpan = new SpannableString(feed.get(i).getMahname() + " " + feed.get(i).getMahdarajeh() + " " + "(" + feed.get(i).getMahsize() + feed.get(i).getMahvahed() + ")");
-                nametoSpan.setSpan(new TextAppearanceSpan(mContext, R.style.title), 0, sizeTitle, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                nametoSpan.setSpan(new TextAppearanceSpan(mContext, R.style.unit), sizeTitle, sizeTitle + sizeUnit + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                Holder.name.setText(nametoSpan);
-
-//        holder.name.setText(product.getName() + " " + product.getBrand());
-//        holder.unitTextView.setText("(" + product.getUnit() + ")");
+                Spannable nametoSpan = null;
+                try {
+                    int sizeTitle = feed.get(i).getMahname().length() + feed.get(i).getMahdarajeh().length() + 2;
+                    int sizeUnit = feed.get(i).getMahvahed().length() + feed.get(i).getMahsize().length() + 1;
+                    nametoSpan = new SpannableString(feed.get(i).getMahname() + " " + feed.get(i).getMahdarajeh() + " " + "(" + feed.get(i).getMahsize() + feed.get(i).getMahvahed() + ")");
+                    nametoSpan.setSpan(new TextAppearanceSpan(mContext, R.style.title), 0, sizeTitle, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    nametoSpan.setSpan(new TextAppearanceSpan(mContext, R.style.unit), sizeTitle, sizeTitle + sizeUnit + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } catch (Exception e) {
+                }
+                Holder.name.setText(TextUtils.isEmpty(nametoSpan) ? feed.get(i).getMahname() : nametoSpan);
 
                 Holder.price.setVisibility(View.VISIBLE);
                 Holder.price.setText(NumberUtil.getPriceFormat(feed.get(i).getMahfi()) /*+ Constants.CURRENCY*/);
@@ -87,7 +89,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
                 String s = String.valueOf(feed.get(i).getMahcod());
-                Holder.code.setText(s.length() > 8 ? s.substring(s.length() - 8) : s);
+                Holder.code.setText(s.length() > 8 ? s.substring(s.length() - 8) : TextUtils.isEmpty(s) ? feed.get(i).getMahgroup() : s);
+                Holder.tvCode.setText(TextUtils.isEmpty(s) ? "گروه : " : "کد : ");
                 Holder.tvDescription.setText(String.valueOf(feed.get(i).getMahdetail()));
 
                 Glide.with(mContext)
@@ -109,11 +112,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return ((feed.size() != 0) ? feed.size() : 0);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(String s);
-    }
-
-
     public void addItems(List<ProductItem> posts) {
         this.feed.addAll(posts);
         notifyDataSetChanged();
@@ -124,13 +122,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(String s);
+    }
 
     public class ProductHolder extends RecyclerView.ViewHolder {
 
 
         ViewDataBinding binding;
         ImageView image;
-        TextView name, price, code, unitTextView, tvDescription;
+        TextView name, price, code, unitTextView, tvDescription, tvCode;
         FrameLayout imagePlaceholder;
 
         public ProductHolder(View view) {
@@ -139,6 +140,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.name = view.findViewById(R.id.text_view_name);
             this.price = view.findViewById(R.id.text_view_price);
             this.code = view.findViewById(R.id.text_view_code);
+            this.tvCode = view.findViewById(R.id.tvCode);
             this.unitTextView = view.findViewById(R.id.text_view_unit);
             this.tvDescription = view.findViewById(R.id.tv_description);
             this.imagePlaceholder = view.findViewById(R.id.image_placeholder);

@@ -148,20 +148,7 @@ public class HSH {
         return targetBitmap;
     }
 
-    public void dialog(Dialog dialog) {
-        try {
-            Window window = dialog.getWindow();
-            ViewGroup.LayoutParams params = window.getAttributes();
-            params.width = WindowManager.LayoutParams.MATCH_PARENT;
-            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes((WindowManager.LayoutParams) params);
-            window.setGravity(Gravity.CENTER);
-            dialog.show();
-        } catch (Exception e) {
-        }
-    }
-
-    public void display(final Context ctx, final View v) {
+    public static void display(final Context ctx, final View v) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final Animator animator = ViewAnimationUtils.createCircularReveal(v,
@@ -208,7 +195,7 @@ public class HSH {
         }
     }
 
-    public void hide(final Context ctx, final View v) {
+    public static void hide(final Context ctx, final View v) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final Animator animatorHide = ViewAnimationUtils.createCircularReveal(v,
@@ -245,6 +232,19 @@ public class HSH {
         }
     }
 
+    public void dialog(Dialog dialog) {
+        try {
+            Window window = dialog.getWindow();
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes((WindowManager.LayoutParams) params);
+            window.setGravity(Gravity.CENTER);
+            dialog.show();
+        } catch (Exception e) {
+        }
+    }
+
     public void onOpenPage(Context context, @SuppressWarnings("rawtypes") Class tow_class) {
         Intent intent = new Intent(context, tow_class);
         context.startActivity(intent);
@@ -262,4 +262,6 @@ public class HSH {
         }
         return str;
     }
+
+
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="prb_symbolic_tick_default_text_size">15.0sp</dimen>
+    <dimen name="prb_drawable_tick_default_spacing">1.0dip</dimen>
+
+    <dimen name="spacing_2x">8dp</dimen>
+    <dimen name="spacing_base">4dp</dimen>
+
+</resources>

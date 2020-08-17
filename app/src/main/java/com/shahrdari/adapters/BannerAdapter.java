@@ -7,81 +7,82 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.shahrdari.BuildConfig;
 import com.shahrdari.R;
 import com.shahrdari.models.BannerModel;
 import com.shahrdari.utils.NumberUtil;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder> {
+public class BannerAdapter extends
+        SliderViewAdapter<BannerAdapter.SliderAdapterVH> {
 
-    private final List<BannerModel> mValues;
-    private Context fragment;
+    private Context context;
+    private List<BannerModel> mSliderItems = new ArrayList<>();
 
-    public BannerAdapter(List<BannerModel> mValues, Context fragment) {
-        this.mValues = mValues;
-        this.fragment = fragment;
+    public BannerAdapter(Context context) {
+        this.context = context;
     }
 
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_banner, parent, false);
-        return new ViewHolder(view);
+    public void renewItems(List<BannerModel> sliderItems) {
+        this.mSliderItems = sliderItems;
+        notifyDataSetChanged();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void deleteItem(int position) {
+        this.mSliderItems.remove(position);
+        notifyDataSetChanged();
+    }
 
-        holder.mItem = mValues.get(position);
-        holder.bindTo(holder.mItem);
-        holder.itemView.setOnClickListener(v -> {
-//                FragmentStack fragmentStack = new FragmentStack(fragment.getActivity(), fragment.getFragmentManager(), R.id.fragment_container);
-//                fragmentStack.replace(VideoDetailFragment.newInstance(similarContentsItem.getId() ,similarContentsItem.getMediaType() ));
-        });
-
+    public void addItem(BannerModel sliderItem) {
+        this.mSliderItems.add(sliderItem);
+        notifyDataSetChanged();
     }
 
     @Override
-    public int getItemCount() {
-        return mValues.size();
+    public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_banner, null);
+        return new SliderAdapterVH(inflate);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
 
-        public final ImageView mView;
-        public TextView tvPrice;
-        public BannerModel mItem;
+        BannerModel sliderItem = mSliderItems.get(position);
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view.findViewById(R.id.banner_img);
-            tvPrice = view.findViewById(R.id.tv_price);
+        viewHolder.tvPrice.setText(NumberUtil.getPriceFormat(mSliderItems.get(position).getMahfi()) + " ريال");
+        Glide.with(viewHolder.itemView)
+                .load(BuildConfig.BASEURL + mSliderItems.get(position).getMahpic())
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false))
+                .into(viewHolder.mView);
+    }
+
+    @Override
+    public int getCount() {
+        //slider view count could be dynamic size
+        return mSliderItems.size();
+    }
+
+    class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+
+        View itemView;
+        ImageView mView;
+        TextView tvPrice;
+
+        public SliderAdapterVH(View itemView) {
+            super(itemView);
+            mView = itemView.findViewById(R.id.banner_img);
+            tvPrice = itemView.findViewById(R.id.tv_price);
+            this.itemView = itemView;
         }
-
-
-        void bindTo(BannerModel responseItem) {
-            tvPrice.setText(NumberUtil.getPriceFormat(responseItem.getMahfi()) + " ريال");
-            Glide.with(fragment)
-                    .load(BuildConfig.BASEURL + responseItem.getMahpic())
-                    /* .diskCacheStrategy(DiskCacheStrategy.NONE)
-                     .skipMemoryCache(true)*/
-                    .apply(new RequestOptions()
-                            .centerCrop())
-                    .into(this.mView);
-
-        }
-
-
     }
-
 
 }
